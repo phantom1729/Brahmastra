@@ -85,23 +85,28 @@ button:hover{ background:#1d4ed8; }
 const BRAHMASTRA = [
     {
         q:"Kinematics tricky velocity question",
-        video:"https://www.youtube.com/embed/YOUR_VIDEO_ID_1"
+        video:"https://www.youtube.com/watch?v=YOUR_VIDEO_ID_1",
+        type:"normal"
     },
     {
         q:"Thermodynamics tricky efficiency problem",
-        video:"https://www.youtube.com/embed/YOUR_VIDEO_ID_2"
+        video:"https://www.youtube.com/watch?v=YOUR_VIDEO_ID_2",
+        type:"normal"
     },
     {
         q:"Electrostatics hardest multiple choice",
-        video:"https://www.youtube.com/embed/YOUR_VIDEO_ID_3"
+        video:"https://www.youtube.com/watch?v=YOUR_VIDEO_ID_3",
+        type:"normal"
     },
     {
         q:"Organic Chemistry reaction trap",
-        video:"https://www.youtube.com/embed/YOUR_VIDEO_ID_4"
+        video:"https://www.youtube.com/watch?v=YOUR_VIDEO_ID_4",
+        type:"normal"
     },
     {
-        q:"Practical",
-        video:"https://www.youtube.com/embed/xOdnHYbPdJM"
+        q:"Practical (YouTube Shorts)",
+        video:"https://www.youtube.com/shorts/xOdnHYbPdJM",
+        type:"shorts"
     }
 ];
 
@@ -109,27 +114,50 @@ function loadBrahmaVideo(){
     const select = document.getElementById("brahmaQuestionSelect");
     const idx = select.value;
 
+    const text = document.getElementById("brahmaQuestionText");
+    const container = document.getElementById("brahmaVideoContainer");
+
     if(idx === ""){
-        document.getElementById("brahmaQuestionText").innerText = "";
-        document.getElementById("brahmaVideoContainer").innerHTML = "";
+        text.innerText = "";
+        container.innerHTML = "";
         return;
     }
 
     const item = BRAHMASTRA[idx];
+    text.innerText = item.q;
 
-    document.getElementById("brahmaQuestionText").innerText = item.q;
-
-    document.getElementById("brahmaVideoContainer").innerHTML = `
-        <iframe 
-            width="100%" 
-            height="315"
-            src="${item.video}"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-        </iframe>
-    `;
+    // 👉 Shorts = CLICK OPEN
+    if(item.type === "shorts"){
+        container.innerHTML = `
+            <a href="${item.video}" target="_blank"
+               style="
+               display:inline-block;
+               margin-top:12px;
+               padding:12px 18px;
+               background:#dc2626;
+               color:white;
+               text-decoration:none;
+               border-radius:8px;
+               font-weight:bold;">
+               ▶ Watch Shorts on YouTube
+            </a>
+        `;
+    } 
+    // 👉 Normal videos = iframe
+    else {
+        const embedURL = item.video.replace("watch?v=", "embed/");
+        container.innerHTML = `
+            <iframe 
+                width="100%" 
+                height="315"
+                src="${embedURL}"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        `;
+    }
 }
 
 // Dark / Light toggle
