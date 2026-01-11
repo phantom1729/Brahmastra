@@ -81,7 +81,6 @@ button:hover{ background:#1d4ed8; }
 </div>
 
 <button class="toggle" onclick="toggleMode()">🌓</button>
-
 <script>
 const BRAHMASTRA = [
     {
@@ -102,28 +101,41 @@ const BRAHMASTRA = [
     },
     {
         q:"Practical",
-        video:"<iframe width="315" height="576" src="https://www.youtube.com/embed/xOdnHYbPdJM" title="Bro balance a book on his finger 😱 #physicswallah #shorts #pwians" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>"
+        video:"https://www.youtube.com/embed/xOdnHYbPdJM"
     }
 ];
 
 function loadBrahmaVideo(){
     const select = document.getElementById("brahmaQuestionSelect");
     const idx = select.value;
-    if(idx===""){ 
+
+    if(idx === ""){
         document.getElementById("brahmaQuestionText").innerText = "";
         document.getElementById("brahmaVideoContainer").innerHTML = "";
-        return; 
+        return;
     }
+
     const item = BRAHMASTRA[idx];
+
     document.getElementById("brahmaQuestionText").innerText = item.q;
+
     document.getElementById("brahmaVideoContainer").innerHTML = `
-        <iframe width="100%" height="315" src="${item.video}" 
-        title="YouTube video" frameborder="0" allowfullscreen></iframe>
+        <iframe 
+            width="100%" 
+            height="315"
+            src="${item.video}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
     `;
 }
 
 // Dark / Light toggle
-function toggleMode(){ document.body.classList.toggle("light"); }
+function toggleMode(){
+    document.body.classList.toggle("light");
+}
 </script>
 
 </body>
